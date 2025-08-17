@@ -10,7 +10,7 @@ public abstract class InputReceiver
         {
             var move = GetRawInput();
 
-            if (move.IsValid())
+            if (move.IsInbound())
             {
                 return move;
             }

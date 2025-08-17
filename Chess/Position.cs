@@ -11,7 +11,7 @@ internal static class ExtensionMethods
         return position.Rank is >= 0 and <= 7 && position.File is >= 0 and <= 7;
     }
     
-    public static bool IsValid(this Move move)
+    public static bool IsInbound(this Move move)
     {
         return move.Source.IsInbound() && move.Target.IsInbound();
     }
