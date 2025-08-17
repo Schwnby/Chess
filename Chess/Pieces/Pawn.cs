@@ -6,58 +6,58 @@ internal sealed class Pawn(PieceColor color) : Piece(color)
     {
         var direction = Color == PieceColor.White ? -1 : 1;
 
-        var validForwardPositions = GetForwardPositions(currentPosition, board, direction);
-        var validCapturePositions = GetCapturePositions(currentPosition, board, direction);
+        var forwardMoves = GetForwardMoves(currentPosition, board, direction);
+        var captureMoves = GetCaptureMoves(currentPosition, board, direction);
         
-        return [..validForwardPositions, ..validCapturePositions];
+        return [..forwardMoves, ..captureMoves];
     }
     
-    private List<Position> GetForwardPositions(Position currentPosition, Board board, int direction)
+    private List<Position> GetForwardMoves(Position currentPosition, Board board, int direction)
     {
-        var validPositions = new List<Position>();
+        var validMoves = new List<Position>();
 
         var oneRankOffset = currentPosition with { Rank = currentPosition.Rank + direction };
         if (oneRankOffset.IsInbound() && board.GetPiece(oneRankOffset) == null)
         {
-            validPositions.Add(oneRankOffset);
+            validMoves.Add(oneRankOffset);
             
             var twoRankOffset = currentPosition with { Rank = currentPosition.Rank + direction * 2 };
             if (HasMoved is false && board.GetPiece(twoRankOffset) == null)
             {
-                validPositions.Add(twoRankOffset);
+                validMoves.Add(twoRankOffset);
             }
         }
         
-        return validPositions;
+        return validMoves;
     }
     
-    private List<Position> GetCapturePositions(Position currentPosition, Board board, int direction)
+    private List<Position> GetCaptureMoves(Position currentPosition, Board board, int direction)
     {
-        var capturePositions = new List<Position>();
+        var validMoves = new List<Position>();
 
         var leftCapture = new Position(currentPosition.Rank + direction, currentPosition.File - 1);
         if (CanCapture(leftCapture, board))
         {
-            capturePositions.Add(leftCapture);
+            validMoves.Add(leftCapture);
         }
 
         var rightCapture = new Position(currentPosition.Rank + direction, currentPosition.File + 1);
         if (CanCapture(rightCapture, board))
         {
-            capturePositions.Add(rightCapture);
+            validMoves.Add(rightCapture);
         }
 
-        return capturePositions;
+        return validMoves;
     }
 
-    private bool CanCapture(Position offsetPosition, Board board)
+    private bool CanCapture(Position position, Board board)
     {
-        if (offsetPosition.IsInbound() is false)
+        if (position.IsInbound() is false)
         {
             return false;
         }
 
-        var piece = board.GetPiece(offsetPosition);
+        var piece = board.GetPiece(position);
         
         return piece != null && piece.Color != Color;
     }
