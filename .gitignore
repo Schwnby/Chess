@@ -12,5 +12,7 @@
 /dataSources/
 /dataSources.local.xml
 
+obj/
+bin/
 .idea/
 *.DotSettings.user
