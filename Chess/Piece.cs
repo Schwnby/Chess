@@ -2,8 +2,8 @@ namespace Chess;
 
 internal abstract class Piece(PieceColor color)
 {
-    internal PieceColor Color { get; } = color;
-    internal bool HasMoved { get; private set; }
+    public  PieceColor Color { get; } = color;
+    protected bool HasMoved { get; private set; }
 
     private protected abstract IEnumerable<Position> GetMoves(Position currentPosition, Board board);
 
