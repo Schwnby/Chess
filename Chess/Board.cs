@@ -20,6 +20,21 @@ internal class Board
         return board[position.Rank, position.File];
     }
     
+    public Piece?[,] GetBoard()
+    {
+        var boardCopy = new Piece?[8, 8];
+        
+        for (var rank = 0; rank < 8; rank++)
+        {
+            for (var file = 0; file < 8; file++)
+            {
+                boardCopy[rank, file] = board[rank, file];
+            }
+        }
+
+        return boardCopy;
+    }
+    
     private static Piece?[,] GetStartingBoard()
     {
         var board = new Piece?[8, 8];
