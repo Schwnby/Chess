@@ -4,19 +4,7 @@ namespace ConsoleChess;
 
 internal class Renderer : IRenderer
 {
-    private readonly string[,] board = new[,]
-    {
-        { "  r  ","  n  ","  b  ","  q  ","  k  ","  b  ","  n  ","  r  " },
-        { "  p  ","  p  ","  p  ","  p  ","  p  ","  p  ","  p  ","  p  " },
-        { "  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  " },
-        { "  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  " },
-        { "  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  " },
-        { "  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  ","  .  " },
-        { "  P  ","  P  ","  P  ","  P  ","  P  ","  P  ","  P  ","  P  " },
-        { "  R  ","  N  ","  B  ","  Q  ","  K  ","  B  ","  N  ","  R  " }
-    };
-
-    public void Render()
+    public void Render(Piece?[,] board)
     {
         Console.Clear();
 
@@ -28,7 +16,7 @@ internal class Renderer : IRenderer
 
             for (var file = 0; file < 8; file++)
             {
-                Console.Write(board[rank, file] + "|");
+                Console.Write(GetPieceSymbol(board[rank, file]) + "|");
             }
 
             Console.WriteLine();
@@ -38,17 +26,28 @@ internal class Renderer : IRenderer
         Console.WriteLine("     A     B     C     D     E     F     G     H");
     }
 
-    public void Render(Move move)
+    private static string GetPieceSymbol(Piece? piece)
     {
-        UpdateBoard(move);
-        Render();
-    }
+        if (piece is null)
+        {
+            return "  .  ";
+        }
 
-    private void UpdateBoard(Move move)
-    {
-        var piece = board[move.Source.Rank, move.Source.File];
-
-        board[move.Target.Rank, move.Target.File] = piece;
-        board[move.Source.Rank, move.Source.File] = "  .  ";
+        return (piece.Type, piece.Color) switch
+        {
+            (PieceType.Pawn, PieceColor.White)   => "  P  ",
+            (PieceType.Rook, PieceColor.White)   => "  R  ",
+            (PieceType.Knight, PieceColor.White) => "  N  ",
+            (PieceType.Bishop, PieceColor.White) => "  B  ",
+            (PieceType.Queen, PieceColor.White)  => "  Q  ",
+            (PieceType.King, PieceColor.White)   => "  K  ",
+            (PieceType.Pawn, PieceColor.Black)   => "  p  ",
+            (PieceType.Rook, PieceColor.Black)   => "  r  ",
+            (PieceType.Knight, PieceColor.Black) => "  n  ",
+            (PieceType.Bishop, PieceColor.Black) => "  b  ",
+            (PieceType.Queen, PieceColor.Black)  => "  q  ",
+            (PieceType.King, PieceColor.Black)   => "  k  ",
+            _ => "  .  "
+        };
     }
 }

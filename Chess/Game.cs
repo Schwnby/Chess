@@ -6,10 +6,9 @@ public class Game(IRenderer renderer, InputReceiver inputReceiver)
 
     public void TestFeatures()
     {
-        renderer.Render();
-        
         while (true)
         {
+            renderer.Render(board.GetBoard());
             var move = inputReceiver.GetInput();
             
             var piece = board.GetPiece(move.Source);
@@ -22,7 +21,6 @@ public class Game(IRenderer renderer, InputReceiver inputReceiver)
             if (validMoves.Contains(move.Target))
             {
                 board.MovePiece(move);
-                renderer.Render(move);
             }
         }
     }
