@@ -39,33 +39,33 @@ internal class Board
     {
         var board = new Piece?[8, 8];
         
-        board[0, 0] = new Rook(PieceColor.Black);
-        board[0, 1] = new Knight(PieceColor.Black);
-        board[0, 2] = new Bishop(PieceColor.Black);
-        board[0, 3] = new Queen(PieceColor.Black);
-        board[0, 4] = new King(PieceColor.Black);
-        board[0, 5] = new Bishop(PieceColor.Black);
-        board[0, 6] = new Knight(PieceColor.Black);
-        board[0, 7] = new Rook(PieceColor.Black);
+        board[0, 0] = new Rook(PieceType.Rook, PieceColor.Black);
+        board[0, 1] = new Knight(PieceType.Knight, PieceColor.Black);
+        board[0, 2] = new Bishop(PieceType.Bishop, PieceColor.Black);
+        board[0, 3] = new Queen(PieceType.Queen, PieceColor.Black);
+        board[0, 4] = new King(PieceType.King, PieceColor.Black);
+        board[0, 5] = new Bishop(PieceType.Bishop, PieceColor.Black);
+        board[0, 6] = new Knight(PieceType.Knight, PieceColor.Black);
+        board[0, 7] = new Rook(PieceType.Rook, PieceColor.Black);
 
         for (var file = 0; file < 8; file++)
         {
-            board[1, file] = new Pawn(PieceColor.Black);
+            board[1, file] = new Pawn(PieceType.Pawn, PieceColor.Black);
         }
 
         for (var file = 0; file < 8; file++)
         {
-            board[6, file] = new Pawn(PieceColor.White);
+            board[6, file] = new Pawn(PieceType.Pawn, PieceColor.White);
         }
 
-        board[7, 0] = new Rook(PieceColor.White);
-        board[7, 1] = new Knight(PieceColor.White);
-        board[7, 2] = new Bishop(PieceColor.White);
-        board[7, 3] = new Queen(PieceColor.White);
-        board[7, 4] = new King(PieceColor.White);
-        board[7, 5] = new Bishop(PieceColor.White);
-        board[7, 6] = new Knight(PieceColor.White);
-        board[7, 7] = new Rook(PieceColor.White);
+        board[7, 0] = new Rook(PieceType.Rook, PieceColor.White);
+        board[7, 1] = new Knight(PieceType.Knight, PieceColor.White);
+        board[7, 2] = new Bishop(PieceType.Bishop, PieceColor.White);
+        board[7, 3] = new Queen(PieceType.Queen, PieceColor.White);
+        board[7, 4] = new King(PieceType.King, PieceColor.White);
+        board[7, 5] = new Bishop(PieceType.Bishop, PieceColor.White);
+        board[7, 6] = new Knight(PieceType.Knight, PieceColor.White);
+        board[7, 7] = new Rook(PieceType.Rook, PieceColor.White);
         
         return board;
     }

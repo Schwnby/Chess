@@ -1,7 +1,8 @@
 namespace Chess;
 
-internal abstract class Piece(PieceColor color)
+public abstract class Piece(PieceType type, PieceColor color)
 {
+    public PieceType Type { get; } = type;
     public  PieceColor Color { get; } = color;
     protected bool HasMoved { get; private set; }
 

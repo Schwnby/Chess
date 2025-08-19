@@ -1,6 +1,6 @@
 namespace Chess.Pieces;
 
-internal sealed class Knight(PieceColor color) : Piece(color)
+internal sealed class Knight(PieceType type, PieceColor color) : Piece(type, color)
 {
     private protected override IEnumerable<Position> GetMoves(Position currentPosition, Board board)
     {
