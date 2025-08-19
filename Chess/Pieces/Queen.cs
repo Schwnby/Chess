@@ -9,25 +9,25 @@ internal sealed class Queen(PieceColor color) : Piece(color)
 
     private List<Position> GetBishopMoves(Position currentPosition, Board board)
     {
-        var movesUpLeft = Something(-1, -1, currentPosition, board);
-        var movesUpRight = Something(1, -1, currentPosition, board);
-        var movesDownLeft = Something(-1, 1, currentPosition, board);
-        var movesDownRight = Something(1, 1, currentPosition, board);
+        var movesUpLeft = GetLinearMoves(-1, -1, currentPosition, board);
+        var movesUpRight = GetLinearMoves(1, -1, currentPosition, board);
+        var movesDownLeft = GetLinearMoves(-1, 1, currentPosition, board);
+        var movesDownRight = GetLinearMoves(1, 1, currentPosition, board);
 
         return [..movesUpLeft, ..movesUpRight, ..movesDownLeft, ..movesDownRight];
     }
 
     private List<Position> GetRookMoves(Position currentPosition, Board board)
     {
-        var movesUp = Something(0, 1, currentPosition, board);
-        var movesRight = Something(1, 0, currentPosition, board);
-        var movesDown = Something(0, -1, currentPosition, board);
-        var movesLeft = Something(-1, 0, currentPosition, board);
+        var movesUp = GetLinearMoves(0, 1, currentPosition, board);
+        var movesRight = GetLinearMoves(1, 0, currentPosition, board);
+        var movesDown = GetLinearMoves(0, -1, currentPosition, board);
+        var movesLeft = GetLinearMoves(-1, 0, currentPosition, board);
         
         return [..movesUp, ..movesDown, ..movesLeft, ..movesRight];
     } 
     
-    private List<Position> Something(int rankOffset, int fileOffset, Position position, Board board)
+    private List<Position> GetLinearMoves(int rankOffset, int fileOffset, Position position, Board board)
     {
         var validMoves = new List<Position>();
         
