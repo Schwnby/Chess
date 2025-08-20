@@ -17,12 +17,12 @@ internal sealed class Pawn(PieceType type, PieceColor color) : Piece(type, color
         var validMoves = new List<Position>();
 
         var oneRankOffset = currentPosition with { Rank = currentPosition.Rank + direction };
-        if (oneRankOffset.IsInbound() && board.GetPiece(oneRankOffset) == null)
+        if (CanMoveTo(oneRankOffset, board))
         {
             validMoves.Add(oneRankOffset);
             
             var twoRankOffset = currentPosition with { Rank = currentPosition.Rank + direction * 2 };
-            if (HasMoved is false && board.GetPiece(twoRankOffset) == null)
+            if (HasMoved is false && CanMoveTo(oneRankOffset, board))
             {
                 validMoves.Add(twoRankOffset);
             }
@@ -50,7 +50,7 @@ internal sealed class Pawn(PieceType type, PieceColor color) : Piece(type, color
         return validMoves;
     }
 
-    private protected override bool CanCapture(Position position, Board board)
+    private bool CanCapture(Position position, Board board)
     {
         if (position.IsInbound() is false)
         {
@@ -60,5 +60,10 @@ internal sealed class Pawn(PieceType type, PieceColor color) : Piece(type, color
         var piece = board.GetPiece(position);
         
         return piece is not null && piece.Color != Color;
+    }
+
+    private protected override bool CanMoveTo(Position position, Board board)
+    {
+        return position.IsInbound() && board.GetPiece(position) == null;
     }
 }
