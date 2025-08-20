@@ -4,10 +4,10 @@ internal sealed class Queen(PieceType type, PieceColor color) : Piece(type, colo
 {
     private protected override IEnumerable<Position> GetMoves(Position currentPosition, Board board)
     {
-        return [..GetRookMoves(currentPosition, board), ..GetBishopMoves(currentPosition, board)];
+        return [..GetStraightMoves(currentPosition, board), ..GetDiagonalMoves(currentPosition, board)];
     }
 
-    private List<Position> GetBishopMoves(Position currentPosition, Board board)
+    private List<Position> GetDiagonalMoves(Position currentPosition, Board board)
     {
         var movesUpLeft = GetLinearMoves(-1, -1, currentPosition, board);
         var movesUpRight = GetLinearMoves(1, -1, currentPosition, board);
@@ -17,7 +17,7 @@ internal sealed class Queen(PieceType type, PieceColor color) : Piece(type, colo
         return [..movesUpLeft, ..movesUpRight, ..movesDownLeft, ..movesDownRight];
     }
 
-    private List<Position> GetRookMoves(Position currentPosition, Board board)
+    private List<Position> GetStraightMoves(Position currentPosition, Board board)
     {
         var movesUp = GetLinearMoves(0, 1, currentPosition, board);
         var movesRight = GetLinearMoves(1, 0, currentPosition, board);
@@ -34,24 +34,15 @@ internal sealed class Queen(PieceType type, PieceColor color) : Piece(type, colo
         while (true)
         {
             position = new Position(position.Rank + rankOffset, position.File + fileOffset);
-            if (position.IsInbound() is false)
+            if (CanMoveTo(position, board))
+            {
+                validMoves.Add(position);
+            }
+
+            if (position.IsInbound() is false || board.GetPiece(position) is not null)
             {
                 break;
             }
-            
-            var piece = board.GetPiece(position);
-            if (piece is null)
-            {
-                validMoves.Add(position);
-                continue;
-            }
-
-            if (piece.Color != Color)
-            {
-                validMoves.Add(position);
-            }
-            
-            break;
         }
         
         return validMoves;
