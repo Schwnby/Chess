@@ -12,6 +12,18 @@ public abstract class Piece(PieceType type, PieceColor color)
     {
         return GetMoves(currentPosition, board);
     }
+
+    private protected virtual bool CanCapture(Position position, Board board)
+    {
+        if (position.IsInbound() is false)
+        {
+            return false;
+        }
+        
+        var piece = board.GetPiece(position);
+        
+        return piece is null || piece.Color != Color;
+    }
     
     internal void MarkAsMoved()
     {
