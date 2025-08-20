@@ -22,18 +22,11 @@ internal sealed class King(PieceType type, PieceColor color) : Piece(type, color
     private Position? GetPotentialMove(int rankOffset, int fileOffset, Position position, Board board)
     {
         position = new Position(position.Rank + rankOffset, position.File + fileOffset);
-
-        if (position.IsInbound() is false)
+        if (CanMoveTo(position, board))
         {
-            return null;
-        }
-        
-        var piece = board.GetPiece(position);
-        if (piece is not null && piece.Color == Color)
-        { 
-            return null;
+            return position;
         }
 
-        return position;
+        return null;
     }
 }
