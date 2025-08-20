@@ -50,7 +50,7 @@ internal sealed class Pawn(PieceType type, PieceColor color) : Piece(type, color
         return validMoves;
     }
 
-    private bool CanCapture(Position position, Board board)
+    private protected override bool CanCapture(Position position, Board board)
     {
         if (position.IsInbound() is false)
         {
@@ -59,6 +59,6 @@ internal sealed class Pawn(PieceType type, PieceColor color) : Piece(type, color
 
         var piece = board.GetPiece(position);
         
-        return piece != null && piece.Color != Color;
+        return piece is not null && piece.Color != Color;
     }
 }
