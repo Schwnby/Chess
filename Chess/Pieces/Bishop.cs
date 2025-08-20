@@ -18,7 +18,6 @@ internal sealed class Bishop(PieceType type, PieceColor color) : Piece(type, col
     {
         var validMoves = new List<Position>();
         
-        
         while (true)
         {
             position = new Position(position.Rank + rankOffset, position.File + fileOffset);
