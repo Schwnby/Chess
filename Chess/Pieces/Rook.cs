@@ -19,24 +19,15 @@ internal sealed class Rook(PieceType type, PieceColor color) : Piece(type, color
         while (true)
         {
             position = new Position(position.Rank + rankOffset, position.File + fileOffset);
-            if (position.IsInbound() is false)
+            if (CanMoveTo(position, board))
+            {
+                validMoves.Add(position);
+            }
+
+            if (position.IsInbound() is false || board.GetPiece(position) is not null)
             {
                 break;
             }
-            
-            var piece = board.GetPiece(position);
-            if (piece is null)
-            {
-                validMoves.Add(position);
-                continue;
-            }
-
-            if (piece.Color != Color)
-            {
-                validMoves.Add(position);
-            }
-            
-            break;
         }
         
         return validMoves;
