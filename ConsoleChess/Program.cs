@@ -6,7 +6,7 @@ internal static class Program
 {
     private static void Main()
     {
-        var game = new Game(new Renderer(), new InputReciever());
+        var game = new Game(new Renderer(), new InputHandler());
         game.TestFeatures();
     }
 }

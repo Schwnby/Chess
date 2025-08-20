@@ -1,10 +1,9 @@
-using System.Collections.Frozen;
 using System.Text.RegularExpressions;
 using Chess;
 
 namespace ConsoleChess;
 
-internal class InputReciever : InputReceiver
+internal class InputHandler : InputReceiver
 {
     private static readonly Regex ValidInputPattern = new("^[a-hA-H][1-8][a-hA-H][1-8]$", RegexOptions.Compiled); // Must be exactly 4 characters: letters from a-h or A-H and digits from 1-8 e.g. e2e4, c6d4
 
