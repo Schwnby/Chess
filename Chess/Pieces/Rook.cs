@@ -2,7 +2,7 @@ namespace Chess.Pieces;
 
 internal sealed class Rook(PieceType type, PieceColor color) : Piece(type, color)
 {
-    private protected override IEnumerable<Position> GetMoves(Position currentPosition, Board board)
+    internal override IEnumerable<Position> GetMoves(Position currentPosition, Board board)
     {
        var movesUp = GetStraightMoves(0, 1, currentPosition, board);
        var movesRight = GetStraightMoves(1, 0, currentPosition, board);

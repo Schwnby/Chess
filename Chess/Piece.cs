@@ -6,11 +6,12 @@ public abstract class Piece(PieceType type, PieceColor color)
     public  PieceColor Color { get; } = color;
     protected bool HasMoved { get; private set; }
 
-    private protected abstract IEnumerable<Position> GetMoves(Position currentPosition, Board board);
+    internal abstract IEnumerable<Position> GetMoves(Position currentPosition, Board board);
 
-    internal IEnumerable<Position> GetLegalMoves(Position currentPosition, Board board)
+    internal IEnumerable<Position> GetLegalMoves(Position currentPosition, Board board, PieceColor color)
     {
-        return GetMoves(currentPosition, board);
+        var positions = GetMoves(currentPosition, board);
+        return positions.Where(position => board.IsLegalMove(new Move(currentPosition, position), color));
     }
 
     private protected virtual bool CanMoveTo(Position position, Board board)

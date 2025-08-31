@@ -35,6 +35,79 @@ internal class Board
         return boardCopy;
     }
     
+    public bool IsLegalMove(Move move, PieceColor color)
+    {
+        MovePiece(move.Source, move.Target);
+        var kingIsInCheck = IsKingInCheck(color);
+        MovePiece(move.Target, move.Source);
+
+        return kingIsInCheck is false;
+    }
+
+    private void MovePiece(Position source, Position target)
+    {
+        var piece = board[source.Rank, source.File];
+        board[target.Rank, target.File] = piece;
+        board[source.Rank, source.File] = null;
+    }
+
+    private bool IsKingInCheck(PieceColor color)
+    {
+        var opponentColor = color == PieceColor.White ? PieceColor.Black : PieceColor.White;
+        
+        var kingPosition = GetKingPosition(color);
+        var positions = GetPiecePositions(opponentColor);
+        
+        foreach (var position in positions)
+        {
+            var piece = GetPiece(position) ?? throw new InvalidOperationException($"No piece found at {position}");
+            
+            var moves = piece.GetMoves(position, this);
+            if (moves.Contains(kingPosition))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private Position GetKingPosition(PieceColor color)
+    {
+        for (var rank = 0; rank < 8; rank++)
+        {
+            for (var file = 0; file < 8; file++)
+            {
+                var piece = board[rank, file];
+                if (piece is { Type: PieceType.King } && piece.Color == color)
+                {
+                    return new Position(rank, file);
+                }
+            }
+        }
+
+        throw new InvalidOperationException($"No {color} king found");
+    }
+
+    private List<Position> GetPiecePositions(PieceColor color)
+    {
+        var positions = new List<Position>();
+        
+        for (var rank = 0; rank < 8; rank++)
+        {
+            for (var file = 0; file < 8; file++)
+            {
+                var piece = board[rank, file];
+                if (piece is not null && piece.Color == color)
+                {
+                    positions.Add(new Position(rank, file));
+                }
+            }
+        }
+
+        return positions;
+    }
+
     private static Piece?[,] GetStartingBoard()
     {
         var board = new Piece?[8, 8];

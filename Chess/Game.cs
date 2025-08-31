@@ -17,7 +17,7 @@ public class Game(IRenderer renderer, InputReceiver inputReceiver)
                 continue;
             }
             
-            var legalMoves= piece.GetLegalMoves(move.Source, board);
+            var legalMoves= piece.GetLegalMoves(move.Source, board, PieceColor.White);
             if (legalMoves.Contains(move.Target))
             {
                 board.MovePiece(move);

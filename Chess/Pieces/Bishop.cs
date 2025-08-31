@@ -4,7 +4,7 @@ namespace Chess.Pieces;
 
 internal sealed class Bishop(PieceType type, PieceColor color) : Piece(type, color)
 {
-    private protected override IEnumerable<Position> GetMoves(Position currentPosition, Board board)
+    internal override IEnumerable<Position> GetMoves(Position currentPosition, Board board)
     {
         var movesUpLeft = GetDiagonalMoves(-1, -1, currentPosition, board);
         var movesUpRight = GetDiagonalMoves(1, -1, currentPosition, board);
