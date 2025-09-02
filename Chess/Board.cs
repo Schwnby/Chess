@@ -120,17 +120,25 @@ internal class Board
         board[0, 5] = new Bishop(PieceType.Bishop, PieceColor.Black);
         board[0, 6] = new Knight(PieceType.Knight, PieceColor.Black);
         board[0, 7] = new Rook(PieceType.Rook, PieceColor.Black);
-
-        for (var file = 0; file < 8; file++)
-        {
-            board[1, file] = new Pawn(PieceType.Pawn, PieceColor.Black);
-        }
-
-        for (var file = 0; file < 8; file++)
-        {
-            board[6, file] = new Pawn(PieceType.Pawn, PieceColor.White);
-        }
-
+        
+        board[1, 0] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        board[1, 1] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        board[1, 2] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        board[1, 3] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        board[1, 4] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        board[1, 5] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        board[1, 6] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        board[1, 7] = new Pawn(PieceType.Pawn, PieceColor.Black);
+        
+        board[6, 0] = new Pawn(PieceType.Pawn, PieceColor.White);
+        board[6, 1] = new Pawn(PieceType.Pawn, PieceColor.White);
+        board[6, 2] = new Pawn(PieceType.Pawn, PieceColor.White);
+        board[6, 3] = new Pawn(PieceType.Pawn, PieceColor.White);
+        board[6, 4] = new Pawn(PieceType.Pawn, PieceColor.White);
+        board[6, 5] = new Pawn(PieceType.Pawn, PieceColor.White);
+        board[6, 6] = new Pawn(PieceType.Pawn, PieceColor.White);
+        board[6, 7] = new Pawn(PieceType.Pawn, PieceColor.White);
+            
         board[7, 0] = new Rook(PieceType.Rook, PieceColor.White);
         board[7, 1] = new Knight(PieceType.Knight, PieceColor.White);
         board[7, 2] = new Bishop(PieceType.Bishop, PieceColor.White);
