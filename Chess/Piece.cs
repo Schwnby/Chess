@@ -11,7 +11,7 @@ public abstract class Piece(PieceType type, PieceColor color)
     internal IEnumerable<Position> GetLegalMoves(Position currentPosition, Board board, PieceColor color)
     {
         var positions = GetMoves(currentPosition, board);
-        return positions.Where(position => board.IsLegalMove(new Move(currentPosition, position), color));
+        return positions.Where(position => board.LeavesKingInCheck(new Move(currentPosition, position), color) is false);
     }
 
     private protected virtual bool CanMoveTo(Position position, Board board)

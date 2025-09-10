@@ -3,6 +3,7 @@
 public class Game(IRenderer renderer, InputReceiver inputReceiver)
 {
     private readonly Board board = new();
+    private PieceColor colorToMove = PieceColor.White;
 
     public void TestFeatures()
     {
@@ -10,18 +11,34 @@ public class Game(IRenderer renderer, InputReceiver inputReceiver)
         {
             renderer.Render(board.GetBoard());
             var move = inputReceiver.GetInput();
-            
-            var piece = board.GetPiece(move.Source);
-            if (piece is null)
+
+            if (TryMakeMove(move))
             {
-                continue;
-            }
-            
-            var legalMoves= piece.GetLegalMoves(move.Source, board, PieceColor.White);
-            if (legalMoves.Contains(move.Target))
-            {
-                board.MovePiece(move);
+                FlipColorToMove();
             }
         }
+    }
+
+    private bool TryMakeMove(Move move)
+    {
+        var piece = board.GetPiece(move.Source);
+        if (piece is null || piece.Color != colorToMove)
+        {
+            return false;
+        }
+            
+        var legalMoves= piece.GetLegalMoves(move.Source, board, colorToMove);
+        if (legalMoves.Contains(move.Target) is false)
+        {
+            return false;
+        }
+        
+        board.MovePiece(move);
+        return true;
+    }
+
+    private void FlipColorToMove()
+    {
+        colorToMove = 1 - colorToMove;
     }
 }

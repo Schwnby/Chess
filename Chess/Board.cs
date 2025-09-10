@@ -35,13 +35,17 @@ internal class Board
         return boardCopy;
     }
     
-    public bool IsLegalMove(Move move, PieceColor color)
+    public bool LeavesKingInCheck(Move move, PieceColor color)
     {
+        var capturedPiece = board[move.Target.Rank, move.Target.File];
+        
         MovePiece(move.Source, move.Target);
         var kingIsInCheck = IsKingInCheck(color);
         MovePiece(move.Target, move.Source);
-
-        return kingIsInCheck is false;
+        
+        board[move.Target.Rank, move.Target.File] = capturedPiece;
+        
+        return kingIsInCheck;
     }
 
     private void MovePiece(Position source, Position target)
@@ -53,10 +57,10 @@ internal class Board
 
     private bool IsKingInCheck(PieceColor color)
     {
-        var opponentColor = color == PieceColor.White ? PieceColor.Black : PieceColor.White;
+        var opponentColor = 1 - color;
         
         var kingPosition = GetKingPosition(color);
-        var positions = GetPiecePositions(opponentColor);
+        var positions = GetPositionsOfColor(opponentColor);
         
         foreach (var position in positions)
         {
@@ -89,7 +93,7 @@ internal class Board
         throw new InvalidOperationException($"No {color} king found");
     }
 
-    private List<Position> GetPiecePositions(PieceColor color)
+    private List<Position> GetPositionsOfColor(PieceColor color)
     {
         var positions = new List<Position>();
         
